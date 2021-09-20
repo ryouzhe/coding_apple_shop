@@ -28,6 +28,12 @@
   color: #61dafb;
 }
 
+.background {
+  background-image: url("./chrome_background.jpg");
+  background-size: cover;
+  color: white;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
