@@ -24,11 +24,14 @@ function Detail(props) {
   let [inputText, inputTextChange] = useState("");
 
   useEffect(() => {
-    setTimeout(() => {
+    let timer = setTimeout(() => {
       //  alertDiv.current.className = "my-alert-disable";
       alertChange(false);
       console.log("Box hidden");
     }, 2000);
+    return () => {
+      clearTimeout(timer);
+    };
   }, [alert]); // 두 번째 파라미터는 실행될 조건... 빈 배열은 업데이트될 때 실행되지 않은다... 첫 렌더링만 실행한다
 
   return (
