@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import "./Detail.scss";
@@ -13,20 +13,43 @@ let BoxContent = styled.h4`
 `;
 
 function Detail(props) {
+  const alertDiv = useRef();
   let { id } = useParams();
   let history = useHistory();
   let item = props.shoes.find(function (data) {
     return data.id === parseInt(id);
   });
 
+  let [alert, alertChange] = useState(true);
+  let [inputText, inputTextChange] = useState("");
+
+  useEffect(() => {
+    setTimeout(() => {
+      //  alertDiv.current.className = "my-alert-disable";
+      alertChange(false);
+      console.log("Box hidden");
+    }, 2000);
+  }, [alert]); // 두 번째 파라미터는 실행될 조건... 빈 배열은 업데이트될 때 실행되지 않은다... 첫 렌더링만 실행한다
+
   return (
     <div className="container">
       <Box>
         <BoxContent className="red">Box Div</BoxContent>
       </Box>
-      <div className="my-alert2">
-        <p>재고가 얼마남지 않았습니다!!</p>
-      </div>
+
+      <input
+        onChange={(e) => {
+          inputTextChange(e.target.value);
+          console.log(inputText);
+        }}
+      />
+
+      {alert === true ? (
+        <div className="my-alert-enable" ref={alertDiv}>
+          <p>재고가 얼마남지 않았습니다!!</p>
+        </div>
+      ) : null}
+
       <div className="row">
         <div className="col-md-6">
           <img

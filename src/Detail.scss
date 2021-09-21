@@ -20,9 +20,13 @@ $main_color: #ff0000;
   @include 함수();
 }
 
-.my-alert2 {
+.my-alert-enable {
   @extend .my-alert;
   background: #ffe591;
+}
+
+.my-alert-disable {
+  display: none;
 }
 
 .my-alert p {
