@@ -1,5 +1,16 @@
 import React from "react";
 import { useHistory, useParams } from "react-router-dom";
+import styled from "styled-components";
+import "./Detail.scss";
+
+let Box = styled.div`
+  padding: 20px;
+`;
+
+let BoxContent = styled.h4`
+  font-size: 25px;
+  color: ${(props) => props.contentColor};
+`;
 
 function Detail(props) {
   let { id } = useParams();
@@ -10,6 +21,12 @@ function Detail(props) {
 
   return (
     <div className="container">
+      <Box>
+        <BoxContent className="red">Box Div</BoxContent>
+      </Box>
+      <div className="my-alert2">
+        <p>재고가 얼마남지 않았습니다!!</p>
+      </div>
       <div className="row">
         <div className="col-md-6">
           <img
