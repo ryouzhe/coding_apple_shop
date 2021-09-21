@@ -4,6 +4,8 @@ import { Navbar, Container, Nav, NavDropdown, Button } from "react-bootstrap";
 import styled from "styled-components";
 import data from "./data";
 import Detail from "./Detail";
+import Card from "./Card";
+import axios from "axios";
 
 import { Link, Route, Switch } from "react-router-dom";
 
@@ -62,27 +64,27 @@ function App() {
             </JumboDiv>
             <div className="container">
               <div className="row">
-                {shoes.map(function (item, index) {
-                  return (
-                    <div className="col-md-4" key={index}>
-                      <img
-                        src={
-                          "https://codingapple1.github.io/shop/shoes" +
-                          (index + 1) +
-                          ".jpg"
-                        }
-                        width="100%"
-                        alt=""
-                      />
-                      <h4>{item.title}</h4>
-                      <p>
-                        {item.content} & {item.price}
-                      </p>
-                    </div>
-                  );
+                {shoes.map((item, index) => {
+                  return <Card shoes={shoes[index]} i={index} key={index} />;
                 })}
               </div>
             </div>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                axios
+                  .get("https://codingapple1.github.io/shop/data2.json")
+                  .then((result) => {
+                    console.log(result.data);
+                    changeShoes([...shoes, ...result.data]);
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
+              }}
+            >
+              더보기
+            </button>
           </div>
         </Route>
         <Route path="/detail/:id">
