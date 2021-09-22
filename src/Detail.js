@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Nav } from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import "./Detail.scss";
+
+import { CSSTransition } from "react-transition-group";
 
 let Box = styled.div`
   padding: 20px;
@@ -21,7 +24,9 @@ function Detail(props) {
   });
 
   let [alert, alertChange] = useState(true);
-  let [inputText, inputTextChange] = useState("");
+  let [selectedTab, changeSelectedTab] = useState(0);
+  let [aniSwitch, changeAniSwitch] = useState(false);
+  // let [inputText, inputTextChange] = useState("");
 
   useEffect(() => {
     let timer = setTimeout(() => {
@@ -40,12 +45,12 @@ function Detail(props) {
         <BoxContent className="red">Box Div</BoxContent>
       </Box>
 
-      <input
+      {/* <input
         onChange={(e) => {
           inputTextChange(e.target.value);
           console.log(inputText);
         }}
-      />
+      /> */}
 
       {alert === true ? (
         <div className="my-alert-enable" ref={alertDiv}>
@@ -89,8 +94,51 @@ function Detail(props) {
           </button>
         </div>
       </div>
+
+      <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
+        <Nav.Item>
+          <Nav.Link
+            eventKey="link-0"
+            onClick={() => {
+              changeSelectedTab(0);
+              changeAniSwitch(false);
+            }}
+          >
+            Active
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            eventKey="link-1"
+            onClick={() => {
+              changeSelectedTab(1);
+              changeAniSwitch(false);
+            }}
+          >
+            Option 1
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+      <CSSTransition in={aniSwitch} classNames="wow" timeout={500}>
+        <TabContent
+          selectedTab={selectedTab}
+          changeAniSwitch={changeAniSwitch}
+        />
+      </CSSTransition>
     </div>
   );
+}
+
+function TabContent(props) {
+  useEffect(() => {
+    props.changeAniSwitch(true);
+  });
+
+  if (props.selectedTab === 0) {
+    return <div>0번째 내용입니다.</div>;
+  } else {
+    return <div>1번째 내용입니다.</div>;
+  }
 }
 
 function Info(props) {
