@@ -3,7 +3,7 @@ import { Nav } from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import "./Detail.scss";
-
+import { connect } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 
 let Box = styled.div`
@@ -79,6 +79,11 @@ function Detail(props) {
             className="btn btn-danger"
             onClick={() => {
               props.changeQty([9, 10, 11]);
+              props.dispatch({
+                type: "ADDITEM",
+                payload: { id: 3, name: "새상품", quan: 1 },
+              });
+              history.push("/cart");
             }}
           >
             주문하기
@@ -145,4 +150,15 @@ function Info(props) {
   return <p>재고: {props.qty[0]}</p>;
 }
 
-export default Detail;
+function 함수명(state) {
+  // state를 props 화.. store 안의 state를 props화
+  console.log(state);
+  return {
+    state: state.reducer,
+    alertState: state.reducer2,
+  };
+}
+
+export default connect(함수명)(Detail);
+
+// export default Detail;

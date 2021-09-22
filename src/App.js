@@ -5,6 +5,7 @@ import styled from "styled-components";
 import data from "./data";
 import Detail from "./Detail";
 import Card from "./Card";
+import Cart from "./Cart";
 import axios from "axios";
 
 import { Link, Route, Switch } from "react-router-dom";
@@ -102,6 +103,9 @@ function App() {
         </Route>
         <Route path="/detail/:id">
           <Detail shoes={shoes} qty={qty} changeQty={changeQty} />
+        </Route>
+        <Route path="/cart">
+          <Cart></Cart>
         </Route>
       </Switch>
     </div>

@@ -5,11 +5,50 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { combineReducers, createStore } from "redux";
+
+let alertDefault = true;
+
+function reducer2(state = alertDefault, action) {
+  if (action.type === "CLOSE") {
+    let copyState = state;
+    copyState = false;
+    return copyState;
+  } else return state;
+}
+
+let defaultState = [
+  { id: 0, name: "멋진신발", quan: 2 },
+  { id: 1, name: "안멋진신발", quan: 1 },
+  { id: 2, name: "웃긴신발", quan: 3 },
+];
+
+function reducer(state = defaultState, action) {
+  if (action.type === "ADDITEM") {
+    let copyState = [...state];
+    copyState.push(action.payload);
+    return copyState;
+  }
+  if (action.type === "INCREAMENT") {
+    let copyState = [...state];
+    copyState[action.payload].quan++;
+    return copyState;
+  } else if (action.type === "DECREAMENT") {
+    let copyState = [...state];
+    copyState[action.payload].quan--;
+    return copyState;
+  } else return state;
+}
+
+let store = createStore(combineReducers({ reducer, reducer2 }));
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
