@@ -17,8 +17,11 @@ const JumboDiv = styled.div`
   padding-right: 50px;
 `;
 
+const qtyContext = React.createContext(); // 같은 값을 공유하는 범위를 생성
+
 function App() {
   let [shoes, changeShoes] = useState(data);
+  let [qty, changeQty] = useState([10, 11, 12]);
 
   return (
     <div className="App">
@@ -63,12 +66,22 @@ function App() {
               </p>
             </JumboDiv>
             <div className="container">
-              <div className="row">
-                {shoes.map((item, index) => {
-                  return <Card shoes={shoes[index]} i={index} key={index} />;
-                })}
-              </div>
+              <qtyContext.Provider value={qty}>
+                <div className="row">
+                  {shoes.map((item, index) => {
+                    return (
+                      <Card
+                        shoes={shoes[index]}
+                        i={index}
+                        key={index}
+                        context={qtyContext}
+                      />
+                    );
+                  })}
+                </div>
+              </qtyContext.Provider>
             </div>
+            <br />
             <button
               className="btn btn-primary"
               onClick={() => {
@@ -88,7 +101,7 @@ function App() {
           </div>
         </Route>
         <Route path="/detail/:id">
-          <Detail shoes={shoes} />
+          <Detail shoes={shoes} qty={qty} changeQty={changeQty} />
         </Route>
       </Switch>
     </div>

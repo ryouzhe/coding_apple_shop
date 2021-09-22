@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 
 const Card = (props) => {
+  const qty = useContext(props.context);
   return (
     <div className="col-md-4" key={props.i}>
       <img
@@ -14,6 +15,7 @@ const Card = (props) => {
       <p>
         {props.shoes.content} & {props.shoes.price}
       </p>
+      {qty[props.i]}
     </div>
   );
 };

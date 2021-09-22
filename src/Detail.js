@@ -69,7 +69,16 @@ function Detail(props) {
           <h4 className="pt-5">{item.title}</h4>
           <p>{item.content}</p>
           <p>{item.price}</p>
-          <button className="btn btn-danger">주문하기</button>&nbsp;
+          <Info qty={props.qty}></Info>
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              props.changeQty([9, 10, 11]);
+            }}
+          >
+            주문하기
+          </button>
+          &nbsp;
           <button
             className="btn btn-danger"
             onClick={() => {
@@ -82,6 +91,10 @@ function Detail(props) {
       </div>
     </div>
   );
+}
+
+function Info(props) {
+  return <p>재고: {props.qty[0]}</p>;
 }
 
 export default Detail;
