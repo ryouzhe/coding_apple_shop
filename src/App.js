@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import "./App.css";
 import { Navbar, Container, Nav, NavDropdown, Button } from "react-bootstrap";
 import styled from "styled-components";
 import data from "./data";
-import Detail from "./Detail";
+// import Detail from "./Detail";
 import Card from "./Card";
 import Cart from "./Cart";
 import axios from "axios";
 
 import { Link, Route, Switch } from "react-router-dom";
+
+let Detail = lazy(() => {
+  return import("./Detail.js");
+});
 
 const JumboDiv = styled.div`
   width: 100%;
@@ -102,7 +106,9 @@ function App() {
           </div>
         </Route>
         <Route path="/detail/:id">
-          <Detail shoes={shoes} qty={qty} changeQty={changeQty} />
+          <Suspense fallback={<div>로딩중입니다.</div>}>
+            <Detail shoes={shoes} qty={qty} changeQty={changeQty} />
+          </Suspense>
         </Route>
         <Route path="/cart">
           <Cart></Cart>

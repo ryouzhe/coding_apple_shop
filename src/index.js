@@ -26,9 +26,18 @@ let defaultState = [
 
 function reducer(state = defaultState, action) {
   if (action.type === "ADDITEM") {
-    let copyState = [...state];
-    copyState.push(action.payload);
-    return copyState;
+    let found = state.findIndex((a) => {
+      return a.id === action.payload.id;
+    });
+    if (found >= 0) {
+      let copyState = [...state];
+      copyState[found].quan++;
+      return copyState;
+    } else {
+      let copyState = [...state];
+      copyState.push(action.payload);
+      return copyState;
+    }
   }
   if (action.type === "INCREAMENT") {
     let copyState = [...state];

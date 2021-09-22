@@ -81,7 +81,7 @@ function Detail(props) {
               props.changeQty([9, 10, 11]);
               props.dispatch({
                 type: "ADDITEM",
-                payload: { id: 3, name: "새상품", quan: 1 },
+                payload: { id: item.id, name: item.title, quan: 1 },
               });
               history.push("/cart");
             }}

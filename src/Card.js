@@ -1,9 +1,18 @@
 import React, { useContext } from "react";
+import { useHistory } from "react-router";
 
 const Card = (props) => {
   const qty = useContext(props.context);
+  let history = useHistory();
+
   return (
-    <div className="col-md-4" key={props.i}>
+    <div
+      className="col-md-4"
+      key={props.i}
+      onClick={() => {
+        history.push("/detail/" + props.shoes.id);
+      }}
+    >
       <img
         src={
           "https://codingapple1.github.io/shop/shoes" + (props.i + 1) + ".jpg"
